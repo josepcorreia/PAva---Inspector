@@ -1,5 +1,5 @@
 package ist.meic.pa;
 
-public class CommandInspect {
+public class CommandQuit {
 	public void execute(){}
 }
