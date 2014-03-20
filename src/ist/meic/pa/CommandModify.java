@@ -1,5 +1,10 @@
 package ist.meic.pa;
 
-public class CommandModify {
-	public void execute(){}
+public class CommandModify implements Command{
+	
+	@Override
+	public void execute(Object... objects) {
+		// TODO Auto-generated method stub
+		
+	}
 }
