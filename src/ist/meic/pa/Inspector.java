@@ -28,13 +28,19 @@ public class Inspector {
 			Scanner sc = new Scanner(System.in);
 			String line[]= sc.nextLine().split(" ");
 			
+			// Mudar isto
+			if(line[0].equals("q"))
+				return;
+			
 			Command c = iMethods.get(line[0]);
 			
 			if(c == null) {
 				
 			}
 			
-			c.execute(actual, line);
+			Object ret = c.execute(actual, line);
+			if(ret != null)
+				actual = ret;
 			
 		}
 	}

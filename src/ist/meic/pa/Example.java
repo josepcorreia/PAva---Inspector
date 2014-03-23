@@ -3,7 +3,8 @@ package ist.meic.pa;
 public class Example {
 
 	public static void main(String[] args) {
-		E e = new E();
+		A e = new A();
 		new Inspector().inspect(e);
+		System.err.println("TERMINATED");
 	}
 }

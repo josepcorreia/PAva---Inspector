@@ -4,7 +4,7 @@ public class B {
 
 	private String c;
 	protected int d;
-	
+	public char coiso;
 }
 
 class E extends B {

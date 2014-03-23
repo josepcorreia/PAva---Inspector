@@ -3,9 +3,9 @@ package ist.meic.pa;
 public class CommandCall implements Command {
 	
 	@Override
-	public void execute(Object obj, String[] line) {
+	public Object execute(Object obj, String[] line) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
