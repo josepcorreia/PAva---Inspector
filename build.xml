@@ -46,7 +46,7 @@
     <delete dir="${dist}"/>
   </target>
     	
-  <target name="Run Example" depends="compile"
+  <target name="run" depends="compile"
 	    description="run" >
 	    <java classname="${main}" fork="true">
 			<classpath refid="project.classpath"/>
