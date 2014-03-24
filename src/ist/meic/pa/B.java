@@ -5,6 +5,18 @@ public class B {
 	private String c;
 	protected int d;
 	public char coiso;
+	
+	public int g() {
+		return 42;
+	}
+	
+	public int g(int h) {
+		return d-h;
+	}
+	
+	protected void z() {
+		System.err.println("called");
+	}
 }
 
 class E extends B {

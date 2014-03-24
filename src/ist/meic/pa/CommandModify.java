@@ -13,7 +13,6 @@ public class CommandModify implements Command{
 	public Object execute(Object obj, String[] line) {
 		Class objectClass = obj.getClass();
 		Object objField = null;
-		Class<?> clazzField = null;
 		
 		while(objectClass.getSuperclass() != null) {
 			Field[] fields = objectClass.getDeclaredFields();
@@ -34,9 +33,9 @@ public class CommandModify implements Command{
 					try {
 						
 					Object ret = null;
-					if (objField != null)
-						ret = Util.convert(line[2], objField.getClass());
-					else
+//					if (objField != null)
+//						ret = Util.convert(line[2], objField.getClass());
+//					else
 						ret = Util.convert(line[2], field.getType());
 					
 					field.set(obj, ret);
