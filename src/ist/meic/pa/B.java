@@ -26,5 +26,9 @@ class E extends B {
 		return d+h;
 	}
 	
+	public double g(double d) {
+		return this.d+d;
+	}
+	
 	public static long i = 10L;
 }

@@ -16,14 +16,13 @@ public class CommandCall implements Command {
 		int argsLength = line.length - 2;
 
 		List<Method> toInvoke = new ArrayList<Method>();
-		
+
 		Class objectClass = obj.getClass();
 
 		while(objectClass.getSuperclass() != null) {
 			for(Method m : objectClass.getMethods()) {
 				if(m.getName().equals(line[1])) {
 					toInvoke.add(m);
-					break;
 				}
 			}
 			objectClass = objectClass.getSuperclass();
@@ -37,14 +36,13 @@ public class CommandCall implements Command {
 		}
 		toInvoke = args;
 		args = null;
-		
+
 		for(Method m : toInvoke) {
-			
 			// with arguments
 			if (m.getParameterTypes().length != 0) {
 				Class<?>[] methodParams = m.getParameterTypes();
 				ArrayList<Object> methodArgs = new ArrayList<Object>(methodParams.length);
-				
+
 				int lineIndex = 2;
 				for(Class arg : methodParams) {
 					try {
@@ -55,22 +53,24 @@ public class CommandCall implements Command {
 					}
 					lineIndex++;
 				}
-				Object ret;
-				try {
-					ret = m.invoke(obj, methodArgs.toArray());
-					new CommandInspect().execute(ret);
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(methodArgs.size() == m.getParameterTypes().length) {
+					Object ret;
+					try {
+						ret = m.invoke(obj, methodArgs.toArray());
+						new CommandInspect().execute(ret);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-				
-			// without arguments
+
+				// without arguments
 			} else {
 				try {
 					Object ret = m.invoke(obj, null);
@@ -88,6 +88,7 @@ public class CommandCall implements Command {
 				}
 			}
 		}
+
 
 		return null;
 	}
