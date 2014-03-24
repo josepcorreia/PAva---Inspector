@@ -3,11 +3,14 @@ package ist.meic.pa;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Inspector {
 	
 	private Map<String,Command> iMethods = new HashMap<String, Command>();
 	private Object actual;
+	
+	private ArrayList<Object> inspectedObjects = new ArrayList<Object>();
 	
 	
 	public Inspector() {
@@ -17,12 +20,16 @@ public class Inspector {
 		iMethods.put("m", new CommandModify());
 		iMethods.put("c", new CommandCall());
 		iMethods.put("i", new CommandInspect());
+		iMethods.put("b", new CommandBack());
+		iMethods.put("f", new CommandForward());
 	}
 	
 	public void inspect(Object obj) {
 		
 		actual = obj;
 		iMethods.get("i").execute(actual);
+		inspectedObjects.add(actual);
+		
 		System.err.print("> ");
 		while(true) {
 			Scanner sc = new Scanner(System.in);
@@ -34,11 +41,19 @@ public class Inspector {
 			
 			Command c = iMethods.get(line[0]);
 			
-			if(c == null) {
-				
-			}
+			Object ret = null;
 			
-			Object ret = c.execute(actual, line);
+			if(c != null) {
+			    //Mudar?
+			    if(line[0].equals("b") || line[0].equals("f")) {
+			        ret = c.execute(actual, inspectedObjects, line);
+			        iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
+			    } else {    
+				    ret = c.execute(actual, line);
+				    inspectedObjects.add(ret);
+				}
+    		}
+			
 			if(ret != null)
 				actual = ret;
 			

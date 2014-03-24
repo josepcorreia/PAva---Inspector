@@ -14,6 +14,8 @@ public class CommandCall implements Command {
 
 		// Numero de argumentos
 		int argsLength = line.length - 2;
+		
+		Object ret = null;
 
 		List<Method> toInvoke = new ArrayList<Method>();
 
@@ -54,7 +56,6 @@ public class CommandCall implements Command {
 					lineIndex++;
 				}
 				if(methodArgs.size() == m.getParameterTypes().length) {
-					Object ret;
 					try {
 						ret = m.invoke(obj, methodArgs.toArray());
 						new CommandInspect().execute(ret);
@@ -73,7 +74,7 @@ public class CommandCall implements Command {
 				// without arguments
 			} else {
 				try {
-					Object ret = m.invoke(obj, null);
+					ret = m.invoke(obj, null);
 					new CommandInspect().execute(ret);
 					break;
 				} catch (IllegalArgumentException e) {
@@ -90,7 +91,7 @@ public class CommandCall implements Command {
 		}
 
 
-		return null;
+		return ret;
 	}
 
 	@Override
