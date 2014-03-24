@@ -50,7 +50,7 @@ public class CommandCall implements Command {
 					try {
 						methodArgs.add(Util.convert(line[lineIndex], arg));
 					} catch (RuntimeException e) {
-						System.err.println(e);
+						// Se não consegue converter um argumento, não é este o metodo a ser chamado
 						break;
 					}
 					lineIndex++;
