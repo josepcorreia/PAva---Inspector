@@ -178,4 +178,49 @@ public class Util {
 	public static float stringTofloat(String value) {
 		return Float.parseFloat(value);
 	}
+	
+	/**
+	 * Converts String to Boolean.
+	 * @param value The String to be converted.
+	 * @return The converted Boolean value.
+	 */
+	public static char stringTochar(String value) {
+		return value.charAt(0);
+	}
+	
+	/**
+	 * Converts String to Boolean.
+	 * @param value The String to be converted.
+	 * @return The converted Boolean value.
+	 */
+	public static long stringTolong(String value) {
+		return Long.parseLong(value);
+	}
+	
+	/**
+	 * Converts String to Boolean.
+	 * @param value The String to be converted.
+	 * @return The converted Boolean value.
+	 */
+	public static short stringToshort(String value) {
+		return Short.parseShort(value);
+	}
+	
+	/**
+	 * Converts String to Boolean.
+	 * @param value The String to be converted.
+	 * @return The converted Boolean value.
+	 */
+	public static byte stringTobyte(String value) {
+		return Byte.parseByte(value);
+	}
+	
+	/**
+	 * Converts String to Boolean.
+	 * @param value The String to be converted.
+	 * @return The converted Boolean value.
+	 */
+	public static boolean stringToboolean(String value) {
+		return Boolean.parseBoolean(value);
+	}
 }
