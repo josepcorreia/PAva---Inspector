@@ -23,7 +23,7 @@ public class Inspector {
 		
 		actual = obj;
 		iMethods.get("i").execute(actual);
-		
+		System.err.print("> ");
 		while(true) {
 			Scanner sc = new Scanner(System.in);
 			String line[]= sc.nextLine().split(" ");
@@ -41,6 +41,8 @@ public class Inspector {
 			Object ret = c.execute(actual, line);
 			if(ret != null)
 				actual = ret;
+			
+			System.err.print("> ");
 			
 		}
 	}
