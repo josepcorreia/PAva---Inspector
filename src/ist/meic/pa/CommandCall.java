@@ -59,6 +59,7 @@ public class CommandCall implements Command {
 					try {
 						ret = m.invoke(obj, methodArgs.toArray());
 						new CommandInspect().execute(ret);
+						break;
 					} catch (IllegalArgumentException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -99,4 +100,9 @@ public class CommandCall implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	
+        return null;
+    }
 }

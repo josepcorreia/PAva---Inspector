@@ -50,7 +50,8 @@ public class Inspector {
 			        iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
 			    } else {    
 				    ret = c.execute(actual, line);
-				    inspectedObjects.add(ret);
+				    if(ret!=null)
+				        inspectedObjects.add(ret);
 				}
     		}
 			

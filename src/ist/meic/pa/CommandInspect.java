@@ -3,6 +3,7 @@ package ist.meic.pa;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 
 public class CommandInspect implements Command {
 	
@@ -61,4 +62,9 @@ public class CommandInspect implements Command {
 			objectClass = objectClass.getSuperclass();
 		}
 	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	
+        return null;
+    }
 }

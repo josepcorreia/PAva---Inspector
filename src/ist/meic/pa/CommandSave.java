@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import java.util.ArrayList;
+
 public class CommandSave implements Command {
 
 	@Override
@@ -13,5 +15,10 @@ public class CommandSave implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	
+        return null;
+    }
 
 }

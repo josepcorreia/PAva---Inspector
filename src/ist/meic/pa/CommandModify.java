@@ -5,6 +5,7 @@ import ist.meic.pa.util.Util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class CommandModify implements Command{
 	
@@ -62,4 +63,9 @@ public class CommandModify implements Command{
 		// DO NOTHING
 		
 	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	
+        return null;
+    }
 }
