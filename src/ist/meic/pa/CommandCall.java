@@ -58,7 +58,7 @@ public class CommandCall implements Command {
 				Object ret;
 				try {
 					ret = m.invoke(obj, methodArgs.toArray());
-					System.err.println(ret.toString());
+					new CommandInspect().execute(ret);
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -74,7 +74,7 @@ public class CommandCall implements Command {
 			} else {
 				try {
 					Object ret = m.invoke(obj, null);
-					System.err.println(ret.toString());
+					new CommandInspect().execute(ret);
 					break;
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
