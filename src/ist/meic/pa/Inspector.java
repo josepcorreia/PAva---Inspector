@@ -6,13 +6,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Inspector {
-	
+
 	private Map<String,Command> iMethods = new HashMap<String, Command>();
 	private Object actual;
-	
+
 	private ArrayList<Object> inspectedObjects = new ArrayList<Object>();
-	
-	
+
+
 	public Inspector() {
 		// Create objects only when needed, using reflection
 		// consider using factory. Switch case problem
@@ -23,43 +23,45 @@ public class Inspector {
 		iMethods.put("b", new CommandBack());
 		iMethods.put("f", new CommandForward());
 	}
-	
+
 	public void inspect(Object obj) {
-		
-		actual = obj;
-		iMethods.get("i").execute(actual);
-		inspectedObjects.add(actual);
-		
-		System.err.print("> ");
-		while(true) {
-			Scanner sc = new Scanner(System.in);
-			String line[]= sc.nextLine().split(" ");
-			
-			// Mudar isto
-			if(line[0].equals("q"))
-				return;
-			
-			Command c = iMethods.get(line[0]);
-			
-			Object ret = null;
-			
-			if(c != null) {
-			    //Mudar?
-			    if(line[0].equals("b") || line[0].equals("f")) {
-			        ret = c.execute(actual, inspectedObjects, line);
-			        iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
-			    } else {    
-				    ret = c.execute(actual, line);
-				    if(ret!=null)
-				        inspectedObjects.add(ret);
-				}
-    		}
-			
-			if(ret != null)
-				actual = ret;
-			
+		if(obj != null) {
+
+			actual = obj;
+			iMethods.get("i").execute(actual);
+			inspectedObjects.add(actual);
+
 			System.err.print("> ");
-			
+			while(true) {
+				Scanner sc = new Scanner(System.in);
+				String line[]= sc.nextLine().split(" ");
+
+				// Mudar isto
+				if(line[0].equals("q"))
+					return;
+
+				Command c = iMethods.get(line[0]);
+
+				Object ret = null;
+
+				if(c != null) {
+					//Mudar?
+					if(line[0].equals("b") || line[0].equals("f")) {
+						ret = c.execute(actual, inspectedObjects, line);
+						iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
+					} else {    
+						ret = c.execute(actual, line);
+						if(ret!=null)
+							inspectedObjects.add(ret);
+					}
+				}
+
+				if(ret != null)
+					actual = ret;
+
+				System.err.print("> ");
+
+			}
 		}
 	}
 }
