@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import ist.meic.pa.exceptions.QuitException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -28,22 +30,25 @@ public class Inspector {
 		if(obj != null) {
 
 			actual = obj;
+
+		try{
 			iMethods.get("i").execute(actual);
 			inspectedObjects.add(actual);
-
-			System.err.print("> ");
-			while(true) {
-				Scanner sc = new Scanner(System.in);
-				String line[]= sc.nextLine().split(" ");
-
-				// Mudar isto
-				if(line[0].equals("q"))
-					return;
-
-				Command c = iMethods.get(line[0]);
-
-				Object ret = null;
-
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.err.print("> ");
+		
+		while(true) {
+			Scanner sc = new Scanner(System.in);
+			String line[]= sc.nextLine().split(" ");
+			
+			Command c = iMethods.get(line[0]);
+			
+			Object ret = null;
+			
+			try {
 				if(c != null) {
 					//Mudar?
 					if(line[0].equals("b") || line[0].equals("f")) {
@@ -55,10 +60,16 @@ public class Inspector {
 							inspectedObjects.add(ret);
 					}
 				}
-
-				if(ret != null)
-					actual = ret;
-
+			} catch (QuitException e) {
+				return;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(ret != null)
+				actual = ret;
+			
 				System.err.print("> ");
 
 			}
