@@ -50,15 +50,9 @@ public class Inspector {
 
 				try {
 					if(c != null) {
-						//Mudar?
-						if(line[0].equals("b") || line[0].equals("f")) {
+						
 							ret = c.execute(actual, inspectedObjects, line);
 							iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
-						} else {    
-							ret = c.execute(actual, line);
-							if(ret!=null)
-								inspectedObjects.add(ret);
-						}
 					}
 				} catch (QuitException e) {
 					return;

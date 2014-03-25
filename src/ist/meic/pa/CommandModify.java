@@ -6,10 +6,14 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class CommandModify implements Command{
-	
-	// Able to modify primitive types but not objects (yet)
+
 	@Override
-	public Object execute(Object obj, String[] line) {
+	public void execute(Object obj) {
+		// DO NOTHING
+		
+	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
 		Class objectClass = obj.getClass();
 		Object objField = null;
 		
@@ -54,15 +58,5 @@ public class CommandModify implements Command{
 			objectClass = objectClass.getSuperclass();
 		}	
 		return null;
-	}
-
-	@Override
-	public void execute(Object obj) {
-		// DO NOTHING
-		
-	}
-	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
-        return null;
     }
 }

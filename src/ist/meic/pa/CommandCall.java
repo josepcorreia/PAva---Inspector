@@ -10,7 +10,12 @@ import java.util.List;
 public class CommandCall implements Command {
 
 	@Override
-	public Object execute(Object obj, String[] line) {
+	public void execute(Object obj) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
 
 		// Numero de argumentos
 		int argsLength = line.length - 2;
@@ -50,7 +55,7 @@ public class CommandCall implements Command {
 					try {
 						methodArgs.add(Util.convert(line[lineIndex], arg));
 					} catch (RuntimeException e) {
-						// Se não consegue converter um argumento, não é este o metodo a ser chamado
+						// Se n��o consegue converter um argumento, n��o �� este o metodo a ser chamado
 						break;
 					}
 					lineIndex++;
@@ -91,18 +96,6 @@ public class CommandCall implements Command {
 			}
 		}
 
-
 		return ret;
-	}
-
-	@Override
-	public void execute(Object obj) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
-	
-        return null;
     }
 }
