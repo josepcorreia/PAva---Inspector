@@ -22,12 +22,12 @@ public class B {
 class E extends B {
 	boolean f;
 	
-	public int g(int h) {
-		return d+h;
+	public Double g(double d) {
+		return 2.0;
 	}
 	
-	public double g(double d) {
-		return this.d+d;
+	public int g(int h) {
+		return d+h;
 	}
 	
 	public static long i = 10L;

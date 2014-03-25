@@ -14,7 +14,7 @@ public class CommandCall implements Command {
 
 		// Numero de argumentos
 		int argsLength = line.length - 2;
-		
+
 		Object ret = null;
 
 		List<Method> toInvoke = new ArrayList<Method>();
@@ -58,7 +58,12 @@ public class CommandCall implements Command {
 				if(methodArgs.size() == m.getParameterTypes().length) {
 					try {
 						ret = m.invoke(obj, methodArgs.toArray());
-						new CommandInspect().execute(ret);
+						if(m.getReturnType().isPrimitive()) {
+							System.err.println(ret.toString());
+							ret = null;
+						} else {
+							new CommandInspect().execute(ret);
+						}
 						break;
 					} catch (IllegalArgumentException e) {
 						// TODO Auto-generated catch block
@@ -76,7 +81,12 @@ public class CommandCall implements Command {
 			} else {
 				try {
 					ret = m.invoke(obj, null);
-					new CommandInspect().execute(ret);
+					if(m.getReturnType().isPrimitive()) {
+						System.err.println(ret.toString());
+						ret = null;
+					} else {
+						new CommandInspect().execute(ret);
+					}
 					break;
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
@@ -100,9 +110,9 @@ public class CommandCall implements Command {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
-	
-        return null;
-    }
+
+		return null;
+	}
 }
