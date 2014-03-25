@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import ist.meic.pa.exceptions.QuitException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,33 +29,41 @@ public class Inspector {
 	public void inspect(Object obj) {
 		
 		actual = obj;
-		iMethods.get("i").execute(actual);
-		inspectedObjects.add(actual);
-		
+		try{
+			iMethods.get("i").execute(actual);
+			inspectedObjects.add(actual);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.err.print("> ");
+		
 		while(true) {
 			Scanner sc = new Scanner(System.in);
 			String line[]= sc.nextLine().split(" ");
-			
-			// Mudar isto
-			if(line[0].equals("q"))
-				return;
 			
 			Command c = iMethods.get(line[0]);
 			
 			Object ret = null;
 			
-			if(c != null) {
-			    //Mudar?
-			    if(line[0].equals("b") || line[0].equals("f")) {
-			        ret = c.execute(actual, inspectedObjects, line);
-			        iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
-			    } else {    
-				    ret = c.execute(actual, line);
-				    if(ret!=null)
-				        inspectedObjects.add(ret);
+			try {
+				if(c != null) {
+					//Mudar?
+					if(line[0].equals("b") || line[0].equals("f")) {
+						ret = c.execute(actual, inspectedObjects, line);
+						iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
+					} else {    
+						ret = c.execute(actual, line);
+						if(ret!=null)
+							inspectedObjects.add(ret);
+					}
 				}
-    		}
+			} catch (QuitException e) {
+				return;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			if(ret != null)
 				actual = ret;
