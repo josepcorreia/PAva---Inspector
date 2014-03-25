@@ -6,8 +6,8 @@ public class B {
 	protected int d;
 	public char coiso;
 	
-	public int g() {
-		return 42;
+	private double g() {
+		return 42.0;
 	}
 	
 	public int g(int h) {
@@ -21,6 +21,10 @@ public class B {
 
 class E extends B {
 	boolean f;
+	
+	private int m() {
+		return 69;
+	}
 	
 	public Double g(double d) {
 		return 2.0;

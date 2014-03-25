@@ -19,10 +19,18 @@ public class CommandCall implements Command {
 
 		List<Method> toInvoke = new ArrayList<Method>();
 
-		Class objectClass = obj.getClass();
+		for(Method m : obj.getClass().getDeclaredMethods()) {
+			if(m.getName().equals(line[1])) {
+				m.setAccessible(true);
+				toInvoke.add(m);
+			}
+		}
+		
+		Class objectClass = obj.getClass().getSuperclass();
 
+		
 		while(objectClass.getSuperclass() != null) {
-			for(Method m : objectClass.getMethods()) {
+			for(Method m : objectClass.getDeclaredMethods()) {
 				if(m.getName().equals(line[1])) {
 					toInvoke.add(m);
 				}
@@ -69,8 +77,7 @@ public class CommandCall implements Command {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//System.err.println("Seriously, are you trying to access a private method?");;
 					} catch (InvocationTargetException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -92,8 +99,7 @@ public class CommandCall implements Command {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//System.err.println("Seriously, are you trying to access a private method?");;
 				} catch (InvocationTargetException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
