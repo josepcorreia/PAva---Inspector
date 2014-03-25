@@ -31,45 +31,45 @@ public class Inspector {
 
 			actual = obj;
 
-		try{
-			iMethods.get("i").execute(actual);
-			inspectedObjects.add(actual);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.err.print("> ");
-		
-		while(true) {
-			Scanner sc = new Scanner(System.in);
-			String line[]= sc.nextLine().split(" ");
-			
-			Command c = iMethods.get(line[0]);
-			
-			Object ret = null;
-			
-			try {
-				if(c != null) {
-					//Mudar?
-					if(line[0].equals("b") || line[0].equals("f")) {
-						ret = c.execute(actual, inspectedObjects, line);
-						iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
-					} else {    
-						ret = c.execute(actual, line);
-						if(ret!=null)
-							inspectedObjects.add(ret);
-					}
-				}
-			} catch (QuitException e) {
-				return;
+			try{
+				iMethods.get("i").execute(actual);
+				inspectedObjects.add(actual);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if(ret != null)
-				actual = ret;
-			
+			System.err.print("> ");
+
+			while(true) {
+				Scanner sc = new Scanner(System.in);
+				String line[]= sc.nextLine().split(" ");
+
+				Command c = iMethods.get(line[0]);
+
+				Object ret = null;
+
+				try {
+					if(c != null) {
+						//Mudar?
+						if(line[0].equals("b") || line[0].equals("f")) {
+							ret = c.execute(actual, inspectedObjects, line);
+							iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
+						} else {    
+							ret = c.execute(actual, line);
+							if(ret!=null)
+								inspectedObjects.add(ret);
+						}
+					}
+				} catch (QuitException e) {
+					return;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				if(ret != null)
+					actual = ret;
+
 				System.err.print("> ");
 
 			}
