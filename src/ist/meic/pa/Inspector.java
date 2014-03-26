@@ -1,6 +1,7 @@
 package ist.meic.pa;
 
-import ist.meic.pa.exceptions.QuitException;
+
+import ist.meic.pa.exceptions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,19 +44,29 @@ public class Inspector {
 			while(true) {
 				Scanner sc = new Scanner(System.in);
 				String line[]= sc.nextLine().split(" ");
-
+				
 				Command c = iMethods.get(line[0]);
 
 				Object ret = null;
 
 				try {
 					if(c != null) {
-						
-							ret = c.execute(actual, inspectedObjects, line);
-							iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
+						ret = c.execute(actual, inspectedObjects, line);
+						if(ret != null){
+							inspectedObjects.add(ret);
+						}
 					}
 				} catch (QuitException e) {
 					return;
+				} catch (InspectException e) {
+					try {
+						ret = e.getRetObject();
+						// print new actual object so user knows where he is in the graph
+						iMethods.get("i").execute(ret);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

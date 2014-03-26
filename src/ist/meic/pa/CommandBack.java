@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import ist.meic.pa.exceptions.InspectException;
+
 import java.util.ArrayList;
 
 public class CommandBack implements Command{
@@ -10,13 +12,15 @@ public class CommandBack implements Command{
 		
 	}
 	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line) {
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line)throws InspectException {
 		
 		int index = inspectedObjects.indexOf(obj);
-		if(index == 0)
-		    return obj;
-		else
-		    return inspectedObjects.get(index-1);
+		if(index == 0){
+			throw new InspectException(obj);
+		}
+		else{
+			throw new InspectException(inspectedObjects.get(index-1));
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import ist.meic.pa.exceptions.InspectException;
+
 import java.util.ArrayList;
 
 public class CommandForward implements Command {
@@ -10,13 +12,13 @@ public class CommandForward implements Command {
 
 	}
 	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line) {
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line) throws InspectException {
 	    
 	    int index = inspectedObjects.indexOf(obj);
 		if(index == inspectedObjects.size()-1)
-		    return obj;
+			throw new InspectException(obj);
 		else
-		    return inspectedObjects.get(index+1);
+			throw new InspectException(inspectedObjects.get(index+1));
 	}
 
 
