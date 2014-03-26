@@ -18,13 +18,13 @@ public class Inspector {
 
 	public Inspector() {
 		// Create objects only when needed, using reflection
-		// consider using factory. Switch case problem
-		iMethods.put("q", new CommandQuit());
-		iMethods.put("m", new CommandModify());
-		iMethods.put("c", new CommandCall());
-		iMethods.put("i", new CommandInspect());
-		iMethods.put("b", new CommandBack());
-		iMethods.put("f", new CommandForward());
+		/*iMethods.put("q", new CommandQ());
+		iMethods.put("m", new CommandM());
+		iMethods.put("c", new CommandC());
+		
+		iMethods.put("b", new CommandB());
+		iMethods.put("f", new CommandF());
+	*/
 	}
 
 	public void inspect(Object obj) {
@@ -33,6 +33,8 @@ public class Inspector {
 			actual = obj;
 
 			try{
+				//mudar, fazer com reflextion tambem
+				iMethods.put("i", new CommandI());
 				iMethods.get("i").execute(actual);
 				inspectedObjects.add(actual);
 			} catch (Exception e) {
@@ -50,11 +52,19 @@ public class Inspector {
 				Object ret = null;
 
 				try {
-					if(c != null) {
-						ret = c.execute(actual, inspectedObjects, line);
-						if(ret != null){
-							inspectedObjects.add(ret);
+					if(c == null) {
+						Class<Command> cmd = null;
+						try {
+							cmd = (Class<Command>) Class.forName("ist.meic.pa.Command"+ line[0].toUpperCase());
+						} catch (ClassNotFoundException e) {
+							System.err.print("The Command isn't valid. Please insert a valid command");
 						}
+						c=cmd.newInstance();
+						iMethods.put(line[0], c);
+					}
+					ret = c.execute(actual, inspectedObjects, line);
+					if(ret != null){
+						inspectedObjects.add(ret);
 					}
 				} catch (QuitException e) {
 					return;
