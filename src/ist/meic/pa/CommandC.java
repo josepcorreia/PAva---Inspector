@@ -10,14 +10,16 @@ import java.util.List;
 
 public class CommandC implements Command {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void execute(Object obj) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	@Override
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+					throws Exception {
 
 		// Numero de argumentos
 		int argsLength = line.length - 2;
@@ -120,12 +122,5 @@ public class CommandC implements Command {
 
 
 		return ret;
-	}
-
-	@Override
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
-			HashMap<String, Object> savedObjects, String[] line)
-					throws Exception {
-		return null;
 	}
 }

@@ -13,8 +13,10 @@ public class CommandB implements Command{
 		
 	}
 	
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line)throws InspectException {
-		
+	@Override
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+			throws Exception {
 		int index = inspectedObjects.indexOf(obj);
 		if(index == 0){
 			throw new InspectException(obj);
@@ -22,14 +24,7 @@ public class CommandB implements Command{
 		else{
 			throw new InspectException(inspectedObjects.get(index-1));
 		}
-	}
 
-	@Override
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
-			HashMap<String, Object> savedObjects, String[] line)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
