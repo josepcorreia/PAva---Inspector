@@ -1,6 +1,7 @@
 package ist.meic.pa;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CommandSave implements Command {
 
@@ -16,9 +17,19 @@ public class CommandSave implements Command {
 
 	}
 	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	public Object execute(Object obj, ArrayList inspectedObjects, HashMap<String, Object> savedObjects, String[] line){
 	
+		if(savedObjects.get(line[1]) != null) {
+			savedObjects.put(line[1], obj);
+		}
         return null;
     }
+
+	@Override
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

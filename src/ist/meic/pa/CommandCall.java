@@ -5,6 +5,7 @@ import ist.meic.pa.util.Util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommandCall implements Command {
@@ -119,6 +120,14 @@ public class CommandCall implements Command {
 
 	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
 
+		return null;
+	}
+
+	@Override
+	public Object execute(Object obj, ArrayList inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+			throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

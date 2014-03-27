@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CommandInspect implements Command {
 	
@@ -67,4 +68,12 @@ public class CommandInspect implements Command {
 	
         return null;
     }
+
+	@Override
+	public Object execute(Object obj, ArrayList inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

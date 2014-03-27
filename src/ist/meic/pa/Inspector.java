@@ -13,7 +13,7 @@ public class Inspector {
 	private Object actual;
 
 	private ArrayList<Object> inspectedObjects = new ArrayList<Object>();
-	private Map<String, Object> savedObjects = new HashMap<String, Object>();
+	private HashMap<String, Object> savedObjects = new HashMap<String, Object>();
 
 
 	public Inspector() {
@@ -52,8 +52,11 @@ public class Inspector {
 
 				try {
 					if(c != null) {
+						if(line[0].equals("s")) {
+							ret = c.execute(actual, inspectedObjects, savedObjects, line);
+						}
 						//Mudar?
-						if(line[0].equals("b") || line[0].equals("f")) {
+						else if(line[0].equals("b") || line[0].equals("f")) {
 							ret = c.execute(actual, inspectedObjects, line);
 							iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
 						} else {    

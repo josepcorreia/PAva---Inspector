@@ -1,6 +1,7 @@
 package ist.meic.pa;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CommandForward implements Command {
 
@@ -23,6 +24,14 @@ public class CommandForward implements Command {
 		    return obj;
 		else
 		    return inspectedObjects.get(index+1);
+	}
+
+	@Override
+	public Object execute(Object obj, ArrayList inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -4,6 +4,7 @@ import ist.meic.pa.util.Util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -68,4 +69,12 @@ public class CommandModify implements Command{
 	
         return null;
     }
+
+	@Override
+	public Object execute(Object obj, ArrayList inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
