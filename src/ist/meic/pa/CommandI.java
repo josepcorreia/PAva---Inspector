@@ -1,10 +1,12 @@
 package ist.meic.pa;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Arrays;
 
 public class CommandI implements Command {
 
@@ -18,7 +20,10 @@ public class CommandI implements Command {
 		Class<?> objectClass = obj.getClass();
 		
 		while(objectClass.getSuperclass() != null) {
+			
 			Field[] fields = objectClass.getDeclaredFields();
+			if(Arrays.asList(fields).size() != 0)
+			    System.err.println("Fields inherited from " + objectClass.getName() + ":");
 
 			for(Field field : fields){
 				// verificar se h�� campos a null
@@ -42,6 +47,37 @@ public class CommandI implements Command {
 					e.printStackTrace();
 				}
 			}
+			
+			objectClass = objectClass.getSuperclass();
+		}
+		
+		// first print all fields, now print all methods
+		System.err.println("----------");
+		objectClass = obj.getClass();
+		
+		while(objectClass.getSuperclass() != null) {
+						
+			Method[] methods = objectClass.getDeclaredMethods();
+			if(Arrays.asList(methods).size() != 0)
+       			System.err.println("Methods inherited from " + objectClass.getName() + ":");
+       			
+			for(Method method : methods){
+				// verificar se h�� campos a null
+
+				method.setAccessible(true);
+				try {
+					if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(method.getModifiers()) || Modifier.isProtected(method.getModifiers())))) {
+			            if(Arrays.asList(method.getExceptionTypes()).size() == 0)
+			                System.err.println(Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getName() + " " + method.getName() + "(" + Arrays.toString(method.getParameterTypes()).replace(",", "").replace("[", "").replace("]", "") + ")");
+			             else
+			                System.err.println(Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getName() + " " + method.getName() + "(" + Arrays.toString(method.getParameterTypes()).replace(",", "").replace("[", "").replace("]", "") + ")" + " throws " + Arrays.toString(method.getExceptionTypes()).replace(",", "").replace("[", "").replace("]", ""));
+				    }
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 			objectClass = objectClass.getSuperclass();
 		}
 	}
