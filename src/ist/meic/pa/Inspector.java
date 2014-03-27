@@ -17,24 +17,17 @@ public class Inspector {
 
 
 	public Inspector() {
-		// Create objects only when needed, using reflection
-		/*iMethods.put("q", new CommandQ());
-		iMethods.put("m", new CommandM());
-		iMethods.put("c", new CommandC());
-		
-		iMethods.put("b", new CommandB());
-		iMethods.put("f", new CommandF());
-	*/
+		// Default command
+		iMethods.put("i", new CommandI());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void inspect(Object obj) {
 		if(obj != null) {
 
 			actual = obj;
 
 			try{
-				//mudar, fazer com reflextion tambem
-				iMethods.put("i", new CommandI());
 				iMethods.get("i").execute(actual);
 				inspectedObjects.add(actual);
 			} catch (Exception e) {
@@ -46,7 +39,7 @@ public class Inspector {
 			while(true) {
 				Scanner sc = new Scanner(System.in);
 				String line[]= sc.nextLine().split(" ");
-				
+
 				Command c = iMethods.get(line[0]);
 
 				Object ret = null;
@@ -57,10 +50,16 @@ public class Inspector {
 						try {
 							cmd = (Class<Command>) Class.forName("ist.meic.pa.Command"+ line[0].toUpperCase());
 						} catch (ClassNotFoundException e) {
-							System.err.print("The Command isn't valid. Please insert a valid command");
+							System.err.println("The Command isn't valid. Please insert a valid command.");
 						}
-						c=cmd.newInstance();
-						iMethods.put(line[0], c);
+						if(cmd != null) {
+							c=cmd.newInstance();
+							iMethods.put(line[0], c);
+						}
+						else {
+							System.err.print("> ");
+							continue;
+						}
 					}
 					ret = c.execute(actual, inspectedObjects, line);
 					if(ret != null){
@@ -77,6 +76,9 @@ public class Inspector {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} 
+				} catch (InstantiationException e) {
+					// Trying to instantiate interface Command
+					// DO NOTHING
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
