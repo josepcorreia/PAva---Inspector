@@ -11,18 +11,12 @@ public class CommandQ implements Command {
 	public void execute(Object obj) {
 		// Do nothing
 	}
-	
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line) throws QuitException{
-	
-		throw new QuitException();
-    }
 
 	@Override
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
-			HashMap<String, Object> savedObjects, String[] line)
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects, HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		throw new QuitException();
+
 	}
 	
 }
