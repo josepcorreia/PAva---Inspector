@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class CommandI implements Command {
 
@@ -11,8 +12,11 @@ public class CommandI implements Command {
 
 		System.err.println(obj + " is an instance of " + obj.getClass());
 		System.err.println("----------");
+		
+		HashSet<String> uniqueFields = new HashSet<String>();
 
 		Class<?> objectClass = obj.getClass();
+		
 		while(objectClass.getSuperclass() != null) {
 			Field[] fields = objectClass.getDeclaredFields();
 
@@ -21,7 +25,15 @@ public class CommandI implements Command {
 
 				field.setAccessible(true);
 				try {
-					System.err.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+					// show all fields of the inspected object obj, but only the public and protected ones of its superclasses
+					if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(field.getModifiers()) || Modifier.isProtected(field.getModifiers())))) {
+					    if(uniqueFields.contains(field.getName()))
+					        System.err.println("(Shadowed field from " + objectClass + ") " + Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+				        else {
+				            uniqueFields.add(field.getName());
+				            System.err.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+				        }
+				    }
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -47,9 +59,13 @@ public class CommandI implements Command {
 			for(Field field : fields){
 				if(field.getName().equals(line[1])) {
 					try {
-						field.setAccessible(true);
-						objField = field.get(obj);
-						execute(objField);
+						// inspect all fields only of the inspected object obj, and only the public and protected ones of its superclasses
+                        if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(field.getModifiers()) || Modifier.isProtected(field.getModifiers())))) {    
+						    field.setAccessible(true);
+						    objField = field.get(obj);
+    						execute(objField);
+						} else
+						    System.err.println("Seriously, are you trying to access a private field?");
 					} catch (IllegalArgumentException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
