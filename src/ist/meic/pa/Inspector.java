@@ -39,7 +39,20 @@ public class Inspector {
 
 			while(true) {
 				Scanner sc = new Scanner(System.in);
-				String line[]= sc.nextLine().split(" ");
+				String input = sc.nextLine();
+				String line[] = input.split(" ");
+
+				if(input.contains("\"")) {
+					String processString = input;
+					while(true) {
+						int first = processString.indexOf('\"');
+						String string = input.substring(first+1, input.length());
+						String newSubstring = string.substring(0, string.indexOf('\"'));
+
+						break;
+
+					}
+				}
 
 				Command c = iMethods.get(line[0]);
 
