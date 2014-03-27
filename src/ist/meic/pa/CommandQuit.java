@@ -17,13 +17,13 @@ public class CommandQuit implements Command {
 		// Do nothing
 	}
 	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line) throws QuitException{
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line) throws QuitException{
 	
 		throw new QuitException();
     }
 
 	@Override
-	public Object execute(Object obj, ArrayList inspectedObjects,
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {
 		// TODO Auto-generated method stub

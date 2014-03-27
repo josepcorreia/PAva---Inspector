@@ -13,7 +13,7 @@ public class CommandModify implements Command{
 	// Able to modify primitive types but not objects (yet)
 	@Override
 	public Object execute(Object obj, String[] line) {
-		Class objectClass = obj.getClass();
+		Class<?> objectClass = obj.getClass();
 		Object objField = null;
 		
 		while(objectClass.getSuperclass() != null) {
@@ -65,13 +65,13 @@ public class CommandModify implements Command{
 		
 	}
 	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line){
 	
         return null;
     }
 
 	@Override
-	public Object execute(Object obj, ArrayList inspectedObjects,
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {
 		// TODO Auto-generated method stub

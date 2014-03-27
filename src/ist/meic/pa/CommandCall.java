@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CommandCall implements Command {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object execute(Object obj, String[] line) {
 
@@ -27,7 +28,7 @@ public class CommandCall implements Command {
 			}
 		}
 		
-		Class objectClass = obj.getClass().getSuperclass();
+		Class<?> objectClass = obj.getClass().getSuperclass();
 
 		
 		while(objectClass.getSuperclass() != null) {
@@ -55,7 +56,7 @@ public class CommandCall implements Command {
 				ArrayList<Object> methodArgs = new ArrayList<Object>(methodParams.length);
 
 				int lineIndex = 2;
-				for(Class arg : methodParams) {
+				for(Class<?> arg : methodParams) {
 					try {
 						methodArgs.add(Util.convert(line[lineIndex], arg));
 					} catch (RuntimeException e) {
@@ -118,13 +119,13 @@ public class CommandCall implements Command {
 
 	}
 
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line){
 
 		return null;
 	}
 
 	@Override
-	public Object execute(Object obj, ArrayList inspectedObjects,
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {
 		// TODO Auto-generated method stub

@@ -2,7 +2,6 @@ package ist.meic.pa;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,7 +9,7 @@ public class CommandInspect implements Command {
 	
 	@Override
 	public Object execute(Object obj, String[] line) {
-		Class objectClass = obj.getClass();
+		Class<?> objectClass = obj.getClass();
 		Object objField = null;
 		
 		while(objectClass.getSuperclass() != null) {
@@ -42,7 +41,7 @@ public class CommandInspect implements Command {
 		System.err.println(obj + " is an instance of " + obj.getClass());
 		System.err.println("----------");
 		
-		Class objectClass = obj.getClass();
+		Class<?> objectClass = obj.getClass();
 		while(objectClass.getSuperclass() != null) {
 			Field[] fields = objectClass.getDeclaredFields();
 			
@@ -64,13 +63,13 @@ public class CommandInspect implements Command {
 		}
 	}
 	
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line){
 	
         return null;
     }
 
 	@Override
-	public Object execute(Object obj, ArrayList inspectedObjects,
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {
 		// TODO Auto-generated method stub
