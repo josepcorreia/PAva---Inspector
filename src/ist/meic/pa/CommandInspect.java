@@ -72,7 +72,30 @@ public class CommandInspect implements Command {
 	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Class<?> objectClass = obj.getClass();
+		Object objField = null;
+		
+		while(objectClass.getSuperclass() != null) {
+			Field[] fields = objectClass.getDeclaredFields();
+			
+			for(Field field : fields){
+				if(field.getName().equals(line[1])) {
+					try {
+						field.setAccessible(true);
+						objField = field.get(obj);
+						execute(objField);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return objField;
+				}
+			}
+			objectClass = objectClass.getSuperclass();
+		}
+		return objField;
 	}
 }

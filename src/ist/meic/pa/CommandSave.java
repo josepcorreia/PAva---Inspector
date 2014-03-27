@@ -19,8 +19,11 @@ public class CommandSave implements Command {
 	
 	public Object execute(Object obj, ArrayList<Object> inspectedObjects, HashMap<String, Object> savedObjects, String[] line){
 	
-		if(savedObjects.get(line[1]) != null) {
+		if(savedObjects.get(line[1]) == null) {
 			savedObjects.put(line[1], obj);
+			System.err.println("Saved object " + obj + " with name " + line[1]);
+		} else {
+			System.err.println("Can not save object " + obj + " with name " + line[1] + ". Object " + savedObjects.get(line[1]) + " already exists with name " + line[1] + ".");
 		}
         return null;
     }

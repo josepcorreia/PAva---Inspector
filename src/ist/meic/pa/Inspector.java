@@ -60,7 +60,7 @@ public class Inspector {
 							ret = c.execute(actual, inspectedObjects, line);
 							iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
 						} else {    
-							ret = c.execute(actual, line);
+							ret = c.execute(actual, inspectedObjects, savedObjects, line);
 							if(ret!=null)
 								inspectedObjects.add(ret);
 						}

@@ -34,5 +34,13 @@ class E extends B {
 		return d+h;
 	}
 	
+	public String s() {
+		return new String("bla bla");
+	}
+	
+	public void printString(String s) {
+		System.err.println(s);
+	}
+	
 	public static long i = 10L;
 }
