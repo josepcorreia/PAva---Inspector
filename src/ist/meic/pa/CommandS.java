@@ -3,13 +3,7 @@ package ist.meic.pa;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CommandSave implements Command {
-
-	@Override
-	public Object execute(Object obj, String[] line) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class CommandS implements Command {
 
 	@Override
 	public void execute(Object obj) {

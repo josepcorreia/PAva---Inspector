@@ -1,15 +1,11 @@
 package ist.meic.pa;
 
+import ist.meic.pa.exceptions.InspectException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CommandBack implements Command{
-
-	@Override
-	public Object execute(Object obj, String[] line) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class CommandB implements Command{
 
 	@Override
 	public void execute(Object obj) {
@@ -17,13 +13,15 @@ public class CommandBack implements Command{
 		
 	}
 	
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line) {
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line)throws InspectException {
 		
 		int index = inspectedObjects.indexOf(obj);
-		if(index == 0)
-		    return obj;
-		else
-		    return inspectedObjects.get(index-1);
+		if(index == 0){
+			throw new InspectException(obj);
+		}
+		else{
+			throw new InspectException(inspectedObjects.get(index-1));
+		}
 	}
 
 	@Override

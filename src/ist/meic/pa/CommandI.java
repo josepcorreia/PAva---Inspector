@@ -2,13 +2,41 @@ package ist.meic.pa;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CommandInspect implements Command {
+public class CommandI implements Command {
 	
-	@Override
-	public Object execute(Object obj, String[] line) {
+	public void execute(Object obj) {
+		
+		System.err.println(obj + " is an instance of " + obj.getClass());
+		System.err.println("----------");
+		
+		Class objectClass = obj.getClass();
+		while(objectClass.getSuperclass() != null) {
+			Field[] fields = objectClass.getDeclaredFields();
+			
+			for(Field field : fields){
+				// verificar se h�� campos a null
+				
+					field.setAccessible(true);
+					try {
+						System.err.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+			objectClass = objectClass.getSuperclass();
+		}
+	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+
 		Class<?> objectClass = obj.getClass();
 		Object objField = null;
 		
@@ -34,41 +62,9 @@ public class CommandInspect implements Command {
 			objectClass = objectClass.getSuperclass();
 		}
 		return objField;
-	}
-	
-	public void execute(Object obj) {
-		
-		System.err.println(obj + " is an instance of " + obj.getClass());
-		System.err.println("----------");
-		
-		Class<?> objectClass = obj.getClass();
-		while(objectClass.getSuperclass() != null) {
-			Field[] fields = objectClass.getDeclaredFields();
-			
-			for(Field field : fields){
-				// verificar se há campos a null
-				
-					field.setAccessible(true);
-					try {
-						System.err.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			}
-			objectClass = objectClass.getSuperclass();
-		}
-	}
-	
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line){
-	
-        return null;
     }
 
-	@Override
+@Override
 	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)
 			throws Exception {

@@ -8,12 +8,16 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class CommandModify implements Command{
-	
-	// Able to modify primitive types but not objects (yet)
+public class CommandM implements Command{
+
 	@Override
-	public Object execute(Object obj, String[] line) {
-		Class<?> objectClass = obj.getClass();
+	public void execute(Object obj) {
+		// DO NOTHING
+		
+	}
+	
+	public Object execute(Object obj, ArrayList inspectedObjects, String[] line){
+		Class objectClass = obj.getClass();
 		Object objField = null;
 		
 		while(objectClass.getSuperclass() != null) {
@@ -42,7 +46,7 @@ public class CommandModify implements Command{
 					
 					field.set(obj, ret);
 					
-					new CommandInspect().execute(obj);
+					new CommandI().execute(obj);
 					}  catch (IllegalArgumentException e) {
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
@@ -57,17 +61,6 @@ public class CommandModify implements Command{
 			objectClass = objectClass.getSuperclass();
 		}	
 		return null;
-	}
-
-	@Override
-	public void execute(Object obj) {
-		// DO NOTHING
-		
-	}
-	
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects, String[] line){
-	
-        return null;
     }
 
 	@Override

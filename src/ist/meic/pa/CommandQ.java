@@ -5,12 +5,7 @@ import ist.meic.pa.exceptions.QuitException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CommandQuit implements Command {
-
-	@Override
-	public Object execute(Object obj, String[] line) throws QuitException {
-		throw new QuitException();
-	}
+public class CommandQ implements Command {
 
 	@Override
 	public void execute(Object obj) {

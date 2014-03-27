@@ -1,6 +1,7 @@
 package ist.meic.pa;
 
-import ist.meic.pa.exceptions.QuitException;
+
+import ist.meic.pa.exceptions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,17 +18,11 @@ public class Inspector {
 
 
 	public Inspector() {
-		// Create objects only when needed, using reflection
-		// consider using factory. Switch case problem
-		iMethods.put("q", new CommandQuit());
-		iMethods.put("m", new CommandModify());
-		iMethods.put("c", new CommandCall());
-		iMethods.put("i", new CommandInspect());
-		iMethods.put("b", new CommandBack());
-		iMethods.put("f", new CommandForward());
-		iMethods.put("s", new CommandSave());
+		// Default command
+		iMethods.put("i", new CommandI());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void inspect(Object obj) {
 		if(obj != null) {
 
@@ -51,22 +46,40 @@ public class Inspector {
 				Object ret = null;
 
 				try {
-					if(c != null) {
-						if(line[0].equals("s")) {
-							ret = c.execute(actual, inspectedObjects, savedObjects, line);
+					if(c == null) {
+						Class<Command> cmd = null;
+						try {
+							cmd = (Class<Command>) Class.forName("ist.meic.pa.Command"+ line[0].toUpperCase());
+						} catch (ClassNotFoundException e) {
+							System.err.println("The Command isn't valid. Please insert a valid command.");
 						}
-						//Mudar?
-						else if(line[0].equals("b") || line[0].equals("f")) {
-							ret = c.execute(actual, inspectedObjects, line);
-							iMethods.get("i").execute(ret); // print new actual object so user knows where he is in the graph
-						} else {    
-							ret = c.execute(actual, inspectedObjects, savedObjects, line);
-							if(ret!=null)
-								inspectedObjects.add(ret);
+						if(cmd != null) {
+							c=cmd.newInstance();
+							iMethods.put(line[0], c);
 						}
+						else {
+							System.err.print("> ");
+							continue;
+						}
+					}
+					ret = c.execute(actual, inspectedObjects, line);
+					if(ret != null){
+						inspectedObjects.add(ret);
 					}
 				} catch (QuitException e) {
 					return;
+				} catch (InspectException e) {
+					try {
+						ret = e.getRetObject();
+						// print new actual object so user knows where he is in the graph
+						iMethods.get("i").execute(ret);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+				} catch (InstantiationException e) {
+					// Trying to instantiate interface Command
+					// DO NOTHING
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
