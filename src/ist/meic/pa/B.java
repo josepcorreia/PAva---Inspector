@@ -2,11 +2,11 @@ package ist.meic.pa;
 
 public class B {
 
-	private String c;
+	private String c = "beca beca";
 	protected int d;
 	public char coiso;
 	
-	private double g() {
+	protected double g() {
 		return 42.0;
 	}
 	

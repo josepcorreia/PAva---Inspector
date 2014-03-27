@@ -13,6 +13,7 @@ public class Inspector {
 	private Object actual;
 
 	private ArrayList<Object> inspectedObjects = new ArrayList<Object>();
+	private Map<String, Object> savedObjects = new HashMap<String, Object>();
 
 
 	public Inspector() {
@@ -24,6 +25,7 @@ public class Inspector {
 		iMethods.put("i", new CommandInspect());
 		iMethods.put("b", new CommandBack());
 		iMethods.put("f", new CommandForward());
+		iMethods.put("s", new CommandSave());
 	}
 
 	public void inspect(Object obj) {
