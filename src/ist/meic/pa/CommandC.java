@@ -65,7 +65,15 @@ public class CommandC implements Command {
 				int lineIndex = 2;
 				for(Class<?> arg : methodParams) {
 					try {
-						methodArgs.add(Util.convert(line[lineIndex], arg));
+						if(savedObjects.containsKey(line[lineIndex])) {
+							Object saved = savedObjects.get(line[lineIndex]);
+							if (saved.getClass().getName().equals(arg.getName())) {
+								methodArgs.add(saved);
+							}
+						} else {
+
+							methodArgs.add(Util.convert(line[lineIndex], arg));
+						}
 					} catch (RuntimeException e) {
 						// Se não consegue converter um argumento, não é este o metodo a ser chamado
 						break;
