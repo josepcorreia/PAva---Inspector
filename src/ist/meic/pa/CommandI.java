@@ -33,14 +33,12 @@ public class CommandI implements Command {
 				field.setAccessible(true);
 				try {
 					// show all fields of the inspected object obj, but only the public and protected ones of its superclasses
-					//if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(field.getModifiers()) || Modifier.isProtected(field.getModifiers())))) {
-						if(uniqueFields.contains(field.getName()))
-							Util.printString("(Shadowed field from " + objectClass + ") " + Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
-						else {
-							uniqueFields.add(field.getName());
-							Util.printString(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
-						}
-					//}
+					if(uniqueFields.contains(field.getName()))
+						Util.printString("(Shadowed field from " + objectClass + ") " + Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+					else {
+						uniqueFields.add(field.getName());
+						Util.printString(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+					}
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
