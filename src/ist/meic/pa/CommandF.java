@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CommandF implements Command {
-
+	
 	@Override
 	public void execute(Object obj) {
 		// TODO Auto-generated method stub
 
 	}
+	
 
 	public Object execute(Object obj, ArrayList inspectedObjects, String[] line) throws InspectException {
 

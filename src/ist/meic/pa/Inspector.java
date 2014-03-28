@@ -1,6 +1,5 @@
 package ist.meic.pa;
 
-
 import ist.meic.pa.exceptions.*;
 
 import java.util.HashMap;
@@ -12,16 +11,30 @@ public class Inspector {
 
 	private Map<String,Command> iMethods = new HashMap<String, Command>();
 	private Object actual;
-
+	private int actualIndex = 0;
+	
 	private ArrayList<Object> inspectedObjects = new ArrayList<Object>();
 	private HashMap<String, Object> savedObjects = new HashMap<String, Object>();
-
+	
 
 	public Inspector() {
 		// Default command
 		iMethods.put("i", new CommandI());
 	}
-
+	
+	public void processInspected(Object obj){
+		if(inspectedObjects.contains(obj)){
+			inspectedObjects.subList(actualIndex+1, inspectedObjects.size()).clear();
+			inspectedObjects.add(obj);
+			actualIndex = inspectedObjects.indexOf(obj);
+		}
+		else{
+			inspectedObjects.subList(actualIndex+1, inspectedObjects.size()).clear();
+			inspectedObjects.add(obj);
+			actualIndex = inspectedObjects.indexOf(obj);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void inspect(Object obj) {
 		if(obj != null) {
@@ -31,13 +44,14 @@ public class Inspector {
 			try{
 				iMethods.get("i").execute(actual);
 				inspectedObjects.add(actual);
+				actualIndex = inspectedObjects.indexOf(actual);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.err.print("> ");
 
 			while(true) {
+				System.err.print("> ");
 				Scanner sc = new Scanner(System.in);
 				String line[]= sc.nextLine().split(" ");
 
@@ -58,21 +72,23 @@ public class Inspector {
 							iMethods.put(line[0], c);
 						}
 						else {
-							System.err.print("> ");
 							continue;
 						}
 					}
 					ret = c.execute(actual, inspectedObjects, line);
 					if(ret != null){
-						inspectedObjects.add(ret);
+						//inspectedObjects.add(ret);
+						processInspected(ret);
 					}
 				} catch (QuitException e) {
 					return;
 				} catch (InspectException e) {
 					try {
 						ret = e.getRetObject();
+						actualIndex = inspectedObjects.indexOf(ret);
 						// print new actual object so user knows where he is in the graph
 						iMethods.get("i").execute(ret);
+						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -87,9 +103,8 @@ public class Inspector {
 
 				if(ret != null)
 					actual = ret;
-
-				System.err.print("> ");
-
+				
+				System.out.println(inspectedObjects);
 			}
 		}
 	}
