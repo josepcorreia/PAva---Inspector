@@ -5,7 +5,7 @@ public class B {
 	private String c = "beca beca";
 	protected int d;
 	public char coiso;
-	public String teste = "isto";
+	protected String teste = "isto";
 	
 	protected double g() {
 		return 42.0;
@@ -22,13 +22,19 @@ public class B {
 
 class E extends B {
 	boolean f;
+	protected String other = "coiso";
+	private C c = new C();
 	
 	private int m() {
 		return 69;
 	}
 	
 	public Double g(double d) {
-		return 2.0;
+		return d;
+	}
+	
+	public Double g(double f, double s) {
+		return f+s;
 	}
 	
 	public int g(int h) {

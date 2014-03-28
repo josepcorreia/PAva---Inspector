@@ -24,16 +24,9 @@ public class Inspector {
 	}
 	
 	public void processInspected(Object obj){
-		if(inspectedObjects.contains(obj)){
 			inspectedObjects.subList(actualIndex+1, inspectedObjects.size()).clear();
 			inspectedObjects.add(obj);
 			actualIndex = inspectedObjects.indexOf(obj);
-		}
-		else{
-			inspectedObjects.subList(actualIndex+1, inspectedObjects.size()).clear();
-			inspectedObjects.add(obj);
-			actualIndex = inspectedObjects.indexOf(obj);
-		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -78,7 +71,6 @@ public class Inspector {
 					}
 					ret = c.execute(actual, inspectedObjects, savedObjects, line);
 					if(ret != null){
-						//inspectedObjects.add(ret);
 						processInspected(ret);
 					}
 				} catch (QuitException e) {
