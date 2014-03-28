@@ -233,4 +233,8 @@ public class Util {
 	public static void printString(String s) {
 		System.err.println(s);
 	}
+	
+	public static void printPrompt() {
+		System.err.print("> ");
+	}
 }

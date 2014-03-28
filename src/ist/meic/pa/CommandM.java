@@ -3,6 +3,7 @@ package ist.meic.pa;
 import ist.meic.pa.util.Util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -29,7 +30,9 @@ public class CommandM implements Command{
 		while(objectClass.getSuperclass() != null) {
 			Field[] fields = objectClass.getDeclaredFields();
 
-			processFields(obj, line, fields);
+			if(processFields(obj, objectClass, line, fields)) {
+				break;
+			}
 			objectClass = objectClass.getSuperclass();
 		}	
 		return null;
@@ -40,8 +43,9 @@ public class CommandM implements Command{
 	 * @param line
 	 * @param fields
 	 */
-	private void processFields(Object obj, String[] line, Field[] fields) {
+	private boolean processFields(Object obj, Class<?> objectClass, String[] line, Field[] fields) {
 		for(Field field : fields){
+			if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(field.getModifiers()) || Modifier.isProtected(field.getModifiers())))) {
 			if(field.getName().equals(line[1])) {
 				field.setAccessible(true);
 				try {
@@ -51,7 +55,7 @@ public class CommandM implements Command{
 					field.set(obj, ret);
 
 					new CommandI().execute(obj);
-					return;
+					return true;
 				}  catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
@@ -59,7 +63,12 @@ public class CommandM implements Command{
 				} catch (RuntimeException e) {
 					Util.printString("EXCEPTION "+e.getMessage());
 				}
-			}	
+			}
+			}
+			else {
+				Util.printString("Attempt to modify superclass private field.");
+			}
 		}
+		return false;
 	}
 }

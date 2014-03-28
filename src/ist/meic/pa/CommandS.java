@@ -5,14 +5,24 @@ import ist.meic.pa.util.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author JoseCorreia
+ *
+ */
 public class CommandS implements Command {
 
+	/* (non-Javadoc)
+	 * @see ist.meic.pa.Command#execute(java.lang.Object)
+	 */
 	@Override
 	public void execute(Object obj) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see ist.meic.pa.Command#execute(java.lang.Object, java.util.ArrayList, java.util.HashMap, java.lang.String[])
+	 */
 	public Object execute(Object obj, ArrayList<Object> inspectedObjects, HashMap<String, Object> savedObjects, String[] line){
 
 		if(savedObjects.get(line[1]) == null) {

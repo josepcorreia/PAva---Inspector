@@ -7,6 +7,9 @@ import java.util.HashMap;
 
 public class CommandF implements Command {
 	
+	/* (non-Javadoc)
+	 * @see ist.meic.pa.Command#execute(java.lang.Object)
+	 */
 	@Override
 	public void execute(Object obj) {
 		// TODO Auto-generated method stub
@@ -14,6 +17,9 @@ public class CommandF implements Command {
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see ist.meic.pa.Command#execute(java.lang.Object, java.util.ArrayList, java.util.HashMap, java.lang.String[])
+	 */
 	@Override
 	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
 			HashMap<String, Object> savedObjects, String[] line)

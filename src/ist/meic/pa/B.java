@@ -21,9 +21,9 @@ public class B {
 }
 
 class E extends B {
-	boolean f;
+	private boolean f;
 	protected String other = "coiso";
-	private C c = new C();
+	private String c = "sdfsdf";
 	
 	private int m() {
 		return 69;
