@@ -103,8 +103,6 @@ public class Inspector {
 
 				if(ret != null)
 					actual = ret;
-				
-				System.out.println(inspectedObjects);
 			}
 		}
 	}

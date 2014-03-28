@@ -5,6 +5,7 @@ public class B {
 	private String c = "beca beca";
 	protected int d;
 	public char coiso;
+	public String teste = "isto";
 	
 	protected double g() {
 		return 42.0;

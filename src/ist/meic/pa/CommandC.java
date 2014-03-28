@@ -120,7 +120,6 @@ public class CommandC implements Command {
 			}
 		}
 
-
 		return ret;
 	}
 }
