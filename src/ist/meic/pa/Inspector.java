@@ -75,7 +75,7 @@ public class Inspector {
 							continue;
 						}
 					}
-					ret = c.execute(actual, inspectedObjects, line);
+					ret = c.execute(actual, inspectedObjects, savedObjects, line);
 					if(ret != null){
 						//inspectedObjects.add(ret);
 						processInspected(ret);

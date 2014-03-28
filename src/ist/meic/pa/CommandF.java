@@ -14,20 +14,14 @@ public class CommandF implements Command {
 	}
 	
 
-	public Object execute(Object obj, ArrayList inspectedObjects, String[] line) throws InspectException {
-
+	@Override
+	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
+			HashMap<String, Object> savedObjects, String[] line)
+					throws Exception {
 		int index = inspectedObjects.indexOf(obj);
 		if(index == inspectedObjects.size()-1)
 			throw new InspectException(obj);
 		else
 			throw new InspectException(inspectedObjects.get(index+1));
 	}
-	@Override
-	public Object execute(Object obj, ArrayList<Object> inspectedObjects,
-			HashMap<String, Object> savedObjects, String[] line)
-					throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
