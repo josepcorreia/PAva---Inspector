@@ -40,7 +40,7 @@ public class CommandM implements Command{
 					} catch (IllegalAccessException e) {
 						e.printStackTrace();
 					} catch (RuntimeException e) {
-						System.err.println("EXCEPTION "+e.getMessage());
+						Util.printString("EXCEPTION "+e.getMessage());
 					}
 
 					return null;

@@ -1,6 +1,7 @@
 package ist.meic.pa;
 
 import ist.meic.pa.exceptions.*;
+import ist.meic.pa.util.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class Inspector {
 			}
 
 			while(true) {
-				System.err.print("> ");
+				Util.printString("> ");
 				Scanner sc = new Scanner(System.in);
 				String line[]= sc.nextLine().split(" ");
 

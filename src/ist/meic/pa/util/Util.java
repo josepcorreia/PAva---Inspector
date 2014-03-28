@@ -4,6 +4,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author ist166950
+ *
+ */
+
 public class Util {
 
 
@@ -36,15 +41,11 @@ public class Util {
 
 	// Action -------------------------------------------------------------------------------------
 
+
 	/**
-	 * Convert the given object value to the given class.
-	 * @param from The object value to be converted.
-	 * @param to The type class which the given object should be converted to.
-	 * @return The converted object value.
-	 * @throws NullPointerException If 'to' is null.
-	 * @throws UnsupportedOperationException If no suitable converter can be found.
-	 * @throws RuntimeException If conversion failed somehow. This can be caused by at least
-	 * an ExceptionInInitializerError, IllegalAccessException or InvocationTargetException.
+	 * @param from
+	 * @param to
+	 * @return
 	 */
 	public static <T> T convert(Object from, Class<T> to) {
 
@@ -85,142 +86,151 @@ public class Util {
 
 
 
+	/**
+	 * @param from
+	 * @param to
+	 * @return
+	 */
 	public static <T> Class<T> wrap(Class<?> from, Class<T> to) {
 		return (Class<T>) WRAPPERS.get(from);
 	}
 
+
 	/**
-	 * Converts String to Integer.
-	 * @param value The String to be converted.
-	 * @return The converted Integer value.
+	 * @param value
+	 * @return
 	 */
 	public static Integer stringToInteger(String value) {
 		return Integer.valueOf(value);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static Boolean stringToBoolean(String value) {
 		return Boolean.valueOf(value);
 	}
 
+
 	/**
-	 * Converts String to Integer.
-	 * @param value The String to be converted.
-	 * @return The converted Integer value.
+	 * @param value
+	 * @return
 	 */
 	public static Double stringToDouble(String value) {
 		return Double.valueOf(value);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static Float stringToFloat(String value) {
 		return Float.valueOf(value);
 	}
 
+
 	/**
-	 * Converts String to Integer.
-	 * @param value The String to be converted.
-	 * @return The converted Integer value.
+	 * @param value
+	 * @return
 	 */
 	public static Short stringToShort(String value) {
 		return Short.valueOf(value);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static Long stringToLong(String value) {
 		return Long.valueOf(value);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static Character stringToCharacter(String value) {
 		return value.charAt(0);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static int stringToint(String value) {
 		return Integer.parseInt(value);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static double stringTodouble(String value) {
 		return Double.parseDouble(value);
 	}
 
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static float stringTofloat(String value) {
 		return Float.parseFloat(value);
 	}
 	
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static char stringTochar(String value) {
 		return value.charAt(0);
 	}
 	
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static long stringTolong(String value) {
 		return Long.parseLong(value);
 	}
 	
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static short stringToshort(String value) {
 		return Short.parseShort(value);
 	}
 	
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static byte stringTobyte(String value) {
 		return Byte.parseByte(value);
 	}
 	
+
 	/**
-	 * Converts String to Boolean.
-	 * @param value The String to be converted.
-	 * @return The converted Boolean value.
+	 * @param value
+	 * @return
 	 */
 	public static boolean stringToboolean(String value) {
 		return Boolean.parseBoolean(value);
+	}
+	
+	public static void printString(String s) {
+		System.err.println(s);
 	}
 }

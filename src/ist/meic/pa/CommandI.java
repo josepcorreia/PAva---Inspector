@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import ist.meic.pa.util.Util;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -12,8 +14,8 @@ public class CommandI implements Command {
 
 	public void execute(Object obj) {
 
-		System.err.println(obj + " is an instance of " + obj.getClass());
-		System.err.println("----------");
+		Util.printString(obj + " is an instance of " + obj.getClass());
+		Util.printString("----------");
 
 		HashSet<String> uniqueFields = new HashSet<String>();
 
@@ -23,7 +25,7 @@ public class CommandI implements Command {
 
 			Field[] fields = objectClass.getDeclaredFields();
 			if(Arrays.asList(fields).size() != 0)
-				System.err.println("Fields inherited from " + objectClass.getName() + ":");
+				Util.printString("Fields inherited from " + objectClass.getName() + ":");
 
 			for(Field field : fields){
 				// verificar se ha campos a null
@@ -33,10 +35,10 @@ public class CommandI implements Command {
 					// show all fields of the inspected object obj, but only the public and protected ones of its superclasses
 					if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(field.getModifiers()) || Modifier.isProtected(field.getModifiers())))) {
 						if(uniqueFields.contains(field.getName()))
-							System.err.println("(Shadowed field from " + objectClass + ") " + Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+							Util.printString("(Shadowed field from " + objectClass + ") " + Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
 						else {
 							uniqueFields.add(field.getName());
-							System.err.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
+							Util.printString(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " = " + field.get(obj));
 						}
 					}
 				} catch (IllegalArgumentException e) {
@@ -52,14 +54,14 @@ public class CommandI implements Command {
 		}
 
 		// first print all fields, now print all methods
-		System.err.println("----------");
+		Util.printString("----------");
 		objectClass = obj.getClass();
 
 		while(objectClass.getSuperclass() != null) {
 
 			Method[] methods = objectClass.getDeclaredMethods();
 			if(Arrays.asList(methods).size() != 0)
-				System.err.println("Methods inherited from " + objectClass.getName() + ":");
+				Util.printString("Methods inherited from " + objectClass.getName() + ":");
 
 			for(Method method : methods){
 				// verificar se ha campos a null
@@ -68,9 +70,9 @@ public class CommandI implements Command {
 				try {
 					if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(method.getModifiers()) || Modifier.isProtected(method.getModifiers())))) {
 						if(Arrays.asList(method.getExceptionTypes()).size() == 0)
-							System.err.println(Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getName() + " " + method.getName() + "(" + Arrays.toString(method.getParameterTypes()).replace(",", "").replace("[", "").replace("]", "") + ")");
+							Util.printString(Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getName() + " " + method.getName() + "(" + Arrays.toString(method.getParameterTypes()).replace(",", "").replace("[", "").replace("]", "") + ")");
 						else
-							System.err.println(Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getName() + " " + method.getName() + "(" + Arrays.toString(method.getParameterTypes()).replace(",", "").replace("[", "").replace("]", "") + ")" + " throws " + Arrays.toString(method.getExceptionTypes()).replace(",", "").replace("[", "").replace("]", ""));
+							Util.printString(Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getName() + " " + method.getName() + "(" + Arrays.toString(method.getParameterTypes()).replace(",", "").replace("[", "").replace("]", "") + ")" + " throws " + Arrays.toString(method.getExceptionTypes()).replace(",", "").replace("[", "").replace("]", ""));
 					}
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
@@ -99,14 +101,14 @@ public class CommandI implements Command {
 						if( (objectClass.getName().equals(obj.getClass().getName())) || (!objectClass.getName().equals(obj.getClass().getName()) & (Modifier.isPublic(field.getModifiers()) || Modifier.isProtected(field.getModifiers())))) {    
 							field.setAccessible(true);
 							if(field.getType().isPrimitive()) {
-								System.err.println(field.get(obj));
+								Util.printString(field.get(obj).toString());
 							}
 							else {
 								objField = field.get(obj);
 								execute(objField);
 							}
 						} else
-							System.err.println("Seriously, are you trying to access a private field?");
+							Util.printString("Seriously, are you trying to access a private field?");
 					} catch (IllegalArgumentException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

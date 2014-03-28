@@ -85,7 +85,7 @@ public class CommandC implements Command {
 						ret = m.invoke(obj, methodArgs.toArray());
 						if(!m.getReturnType().equals(void.class)) {
 							if(m.getReturnType().isPrimitive()) {
-								System.err.println(ret.toString());
+								Util.printString(ret.toString());
 								ret = null;
 							} else {
 								new CommandI().execute(ret);
@@ -96,7 +96,7 @@ public class CommandC implements Command {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
-						//System.err.println("Seriously, are you trying to access a private method?");;
+						//Util.printString("Seriously, are you trying to access a private method?");;
 					} catch (InvocationTargetException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -109,7 +109,7 @@ public class CommandC implements Command {
 					ret = m.invoke(obj, null);
 					if(!m.getReturnType().equals(void.class)) {
 						if(m.getReturnType().isPrimitive()) {
-							System.err.println(ret.toString());
+							Util.printString(ret.toString());
 							ret = null;
 						} else {
 							new CommandI().execute(ret);
@@ -120,7 +120,7 @@ public class CommandC implements Command {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					//System.err.println("Seriously, are you trying to access a private method?");;
+					//Util.printString("Seriously, are you trying to access a private method?");;
 				} catch (InvocationTargetException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

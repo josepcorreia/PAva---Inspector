@@ -1,5 +1,7 @@
 package ist.meic.pa;
 
+import ist.meic.pa.util.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,9 +17,9 @@ public class CommandS implements Command {
 
 		if(savedObjects.get(line[1]) == null) {
 			savedObjects.put(line[1], obj);
-			System.err.println("Saved object " + obj + " with name " + line[1]);
+			Util.printString("Saved object " + obj + " with name " + line[1]);
 		} else {
-			System.err.println("Can not save object " + obj + " with name " + line[1] + ". Object " + savedObjects.get(line[1]) + " already exists with name " + line[1] + ".");
+			Util.printString("Can not save object " + obj + " with name " + line[1] + ". Object " + savedObjects.get(line[1]) + " already exists with name " + line[1] + ".");
 		}
 		return null;
 	}
